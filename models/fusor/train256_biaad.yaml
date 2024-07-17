@@ -1,0 +1,85 @@
+log:
+#   resume_training_from_ckpt: 'workdir/ID256_sp2_maad_fl/chkpt/best_model.pt'
+  resume_training_from_ckpt:
+
+  exp_dir: './workdir/biaad_ef_wbg/'
+  mode: 'naad'  #0:cat,1:aad,2:maad,3:naad
+  comments: 'FusorNet256_naad1,sp2;idloss:20,vggloss:10:(1.0/4,1.0/2,1.0,1.0,1.0),gan-featureloss:10,recloss：10: same:cor=1:10；maskloss:0;'
+
+arcface:
+  chkpt_path: './models/fusor/Resnet50_70000_net.pth'
+  vector_size: 256
+psp:
+  chkpt_path: './workdir/psp3_wbg/chkpt/iteration_470000.pt'
+  encoder_type: 'Encoder4Editing'
+  stylegan_size: 256
+
+data:
+  dataset_type: 'celeba256'
+  trainset_dir: 'data/celeba/img_align_celeba_dlib256/'
+  train_pickle_list: 'data/celeba/celeba_train_wo_glasses170733.pickle'
+  valset_dir: 'data/celeba/img_align_celeba_dlib256/'
+  val_pickle_list: 'data/celeba/celeba_test_wo_glasses1000.pickle'
+  occ_dir: 'data/occluder1/'
+  occ_list: 'data/occluder1/occluder.txt'
+  sameratio: 2
+
+
+model:
+  device: 'cuda:0'
+  getIntermFeat: True
+  resolution: 256
+  normflag: True
+  lambda_feat: 10
+  lambda_vgg : 10
+  lambda_rec : 10
+  lambda_id : 20
+  vgg_div: 1.0
+  lambda_rec_mask : 100
+  learning_rate_E_G: 4e-4
+  learning_rate_D: 4e-4
+
+
+  beta1: 0
+  beta2: 0.999
+  optim_name: 'ranger'
+  batch_size: 16
+  num_workers: 8
+  grad_clip: 0.0
+  max_steps: 500000
+  VERBOSE: True
+  log_interval: 100
+  board_interval: 50
+  sample_interval: 2000
+  save_interval: 10000
+  SAVE_LATEST_INTERVAL: 2000
+  test_workers: 4
+  test_batch_size: 4
+  keep_optimizer: True
+  save_training_data: True
+  
+cinfer:
+  checkpoints_dir: './models/content_infer/infermodel'
+  which_iter: 'latest'
+  dataset_dir: './data/crop/train'
+  results_dir: './output/infer'
+  normflag: True
+  mask_type: [0,1,2]
+  niter: 5000000
+  niter_decay: 0
+  iter_count: 1
+  gpu_ids: [0]
+  output_scale: 4
+  lr_policy: 'lambda'
+  lr: 1e-4
+  gan_mode: 'lsgan'
+  save_latest_freq: 1000
+  save_iters_freq: 10000
+  continue_train: False
+  print_freq : 100
+  batch_size: 16
+  numworkers: 8
+  train_paths: 'two'
+  lambda_rec: 20.0
+  lambda_kl: 20.0
+  lambda_g: 1.0
