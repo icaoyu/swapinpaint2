@@ -262,7 +262,7 @@ if __name__ == "__main__":
                         help="The directory to save the latent codes and inversion images. (default: images_dir")
     parser.add_argument("--n_sample", type=int, default=None, help="number of the samples to infer.")
     # parser.add_argument("--chkpt", default="workdir/biaad_ef_wbg50w_sameratio3/chkpt/iteration_100000.pt", help="path to generator checkpoint")
-    parser.add_argument("--chkpt", default="workdir/biaad_ef_wbg50w_sameratio3/chkpt/best_model.pt", help="path to generator checkpoint")
+    parser.add_argument("--chkpt", default="chkpt/best_model.pt", help="path to generator checkpoint")
 
     args = parser.parse_args()
 
@@ -277,4 +277,4 @@ if __name__ == "__main__":
 #     python scripts/inference-ID256-biaad.py --gt_img data/celeba/test4/183613.jpg --id_img data/celeba/test4/183613.jpg --mask_type 1 --save_dir workdir/ID256_sp2_naad1/test/ --chkpt workdir/ID256_naad_wofmloss/chkpt/best_model.pt
 # python scripts/inference-ID256-biaad.py --gt_img data/test_jpg/4.jpg --id_img data/test_jpg/23.jpg --mask_type 1 --save_dir workdir/ID256_biaad/test/ --chkpt workdir/ID256_biaad/chkpt/iteration_120000.pt
 
-#python scripts/inference-ID256-biaad-ef-wbg.py --gt_img data/test_jpg/36.jpg --id_img data/test_jpg/36.jpg --mask_type 0
+#python scripts/inference-ID256-biaad-wbg.py --gt_img data/test_jpg/36.jpg --id_img data/test_jpg/36.jpg --mask_type 0
